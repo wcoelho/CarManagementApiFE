@@ -12,11 +12,15 @@ export class CarDetailComponent implements OnInit {
 
   car: Car = { id: null, placa: '', chassi: '', renavam: '', modelo: '', marca: '', ano: null };
   isLoadingResults = true;
+  currentCarId = null;
   
   constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.getCarDetails(this.route.snapshot.params['id']);
+    // Setando o valor do id já que não existe ao carregar a página, evitando erro ao ler a rota de atualização
+    this.currentCarId = this.route.snapshot.params['id'];
+
   }
 
   // Busca registro do veículo específico

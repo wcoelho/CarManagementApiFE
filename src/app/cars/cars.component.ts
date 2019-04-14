@@ -13,13 +13,22 @@ export class CarsComponent implements OnInit {
 
   data: Car[] = [];
   isLoadingResults = true;
-  isFirstPage = true;
-
+  hasError = false;
+  errorMessage = '';
+  
   constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.api.getCars()
       .subscribe(res => {
+        
+        if(res["erro"]!=null)
+        {
+          console.error(res["erro"]);
+          this.data = [];
+          this.hasError = true;
+          this.errorMessage = res["erro"]
+        }
         this.data = res;
         console.log(this.data);
         this.isLoadingResults = false;

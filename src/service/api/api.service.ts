@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+import { catchError, tap } from 'rxjs/operators';
 import { Car } from '../../schema/car';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
+
+// URL base para acesso à API
 const apiUrl = "http://localhost:8000/api/v1/veiculos";
 
 @Injectable({
   providedIn: 'root'
 })
+/* Serviços associados ao CRUD */
 export class ApiService {
 
   constructor(private http: HttpClient) { }
@@ -43,23 +47,23 @@ export class ApiService {
       catchError(this.handleError<Car>(`Erro ao tentar recuperar veículo com id ${id}`))
     );
   }
-  
-  addCar (car): Observable<Car> {
+
+  addCar (car: NgForm): Observable<Car> {
     return this.http.post<Car>(apiUrl, car, httpOptions).pipe(
       tap((car: Car) => console.log(`Adicionado veículo com id=${car.id}`)),
       catchError(this.handleError<Car>('Erro ao tentar adicionar veículo'))
     );
   }
   
-  updateCar (id, car): Observable<any> {
+  updateCar (id: number, car: NgForm): Observable<any> {
     const url = `${apiUrl}/${id}`;
-    return this.http.put(url, car, httpOptions).pipe(
+    return this.http.put<Car>(url, car, httpOptions).pipe(
       tap(_ => console.log(`Dados do veículo com id=${id} atualizados`)),
       catchError(this.handleError<any>(`Erro ao tentar atualizar dados do veículo com id ${id}`))
     );
   }
   
-  deleteCar (id): Observable<Car> {
+  deleteCar (id: number): Observable<Car> {
     const url = `${apiUrl}/${id}`;
   
     return this.http.delete<Car>(url, httpOptions).pipe(

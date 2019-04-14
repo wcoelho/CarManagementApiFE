@@ -24,6 +24,7 @@ export class CarEditComponent implements OnInit {
   ngOnInit() {
     this.getCar(this.route.snapshot.params['id']);
     this.carForm = this.formBuilder.group({
+      'id' : [null],      
       'placa' : [null, Validators.required],
       'chassi' : [null, Validators.required],
       'renavam' : [null, Validators.required],
@@ -37,6 +38,7 @@ export class CarEditComponent implements OnInit {
     this.api.getCar(id).subscribe(data => {
       this.car_id = data.id;
       this.carForm.setValue({
+        id: data.id,
         placa: data.placa,
         chassi: data.chassi,
         renavam: data.renavam,

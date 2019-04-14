@@ -7,7 +7,7 @@
     <a mat-flat-button color="primary" [routerLink]="['/veiculo-novo']">Adicionar<mat-icon>add</mat-icon></a>
   </div>
   <div class="mat-elevation-z8">
-    <table *ngIf="data.length != 0" mat-table [dataSource]="data" class="example-table"
+    <table *ngIf="!hasError" mat-table [dataSource]="data" class="example-table"
            matSort matSortActive="placa" matSortDisableClear matSortDirection="asc">
 
       <!-- Coluna da Placa -->
@@ -50,7 +50,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/veiculo/', row.id]"></tr>
     </table>
   </div>
-  <div *ngIf="data.length === 0">
-      Nenhum veículo cadastrado.
-    </div>
+  <div *ngIf="hasError && !isLoadingResults">
+      {{errorMessage}}
+  </div>
 </div>

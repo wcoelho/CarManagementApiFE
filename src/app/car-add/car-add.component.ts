@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../service/api/api.service';
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 
 @Component({
@@ -40,7 +40,7 @@ export class CarAddComponent implements OnInit {
       .subscribe(res => {
           let id = res['id'];
           this.isLoadingResults = false;
-          this.router.navigate(['/veiculos', id]);
+          this.router.navigate(['/veiculo', id]);
         }, (err) => {
           console.log(err);
           this.isLoadingResults = false;

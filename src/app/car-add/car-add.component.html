@@ -1,3 +1,58 @@
-<p>
-  car-add works!
-</p>
+<div class="example-container mat-elevation-z8">
+<div class="example-loading-shade"
+      *ngIf="isLoadingResults">
+  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+<div class="button-row">
+  <a mat-flat-button color="primary" [routerLink]="['/cars']"><mat-icon>list</mat-icon></a>
+</div>
+<mat-card class="example-card">
+    <form [formGroup]="carForm" (ngSubmit)="onFormSubmit(carForm.value)">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Placa" formControlName="placa"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!carForm.get('placa').valid && carForm.get('placa').touched">Favor fornecer a placa</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Chassi" formControlName="chassi"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+              <span *ngIf="!carForm.get('chassi').valid && carForm.get('chassi').touched">Favor fornecer o chassi</span>
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Renavam" formControlName="renavam"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+              <span *ngIf="!carForm.get('renavam').valid && carForm.get('renavam').touched">Favor fornecer o renavam</span>
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Marca" formControlName="marca"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!carForm.get('marca').valid && carForm.get('marca').touched">Favor fornecer a marca</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Modelo" formControlName="modelo"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+              <span *ngIf="!carForm.get('modelo').valid && carForm.get('modelo').touched">Favor fornecer o modelo</span>
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Ano" formControlName="ano"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+              <span *ngIf="!carForm.get('ano').valid && carForm.get('ano').touched">Favor fornecer o ano</span>
+          </mat-error>
+      </mat-form-field>
+    <div class="button-row">
+      <button type="submit" [disabled]="!carForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+    </div>
+  </form>
+</mat-card>
+</div>
